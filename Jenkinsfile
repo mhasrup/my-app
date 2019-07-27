@@ -14,12 +14,16 @@ pipeline {
         }
         stage('--test--') {
             steps {
+                withMaven(maven: 'maven-3.6'){
                 sh "mvn test"
+                }
             }
         }
         stage('--package--') {
             steps {
+                withMaven(maven: 'maven-3.6'){
                 sh "mvn package"
+                }
             }
         }
     }
