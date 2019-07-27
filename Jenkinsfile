@@ -26,5 +26,36 @@ pipeline {
                 }
             }
         }
+         stage('Deploy') {
+            parallel {
+                stage('Deploy On Windows') {
+                    agent {
+                        label "Docker"
+                    }
+                    steps {
+                        echo "Hi I am in Win"
+                    }
+                    post {
+                        always {
+                            junit "**/TEST-*.xml"
+                        }
+                    }
+                }
+                stage('Deploy On Linux') {
+                    agent {
+                        label "Docker"
+                    }
+                    steps {
+                        echo "Hi I am In Linux"
+                    }
+                    post {
+                        always {
+                            junit "**/TEST-*.xml"
+                        }
+                    }
+                }
+            }
+        }
+        
     }
 }
